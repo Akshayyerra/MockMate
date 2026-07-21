@@ -1,25 +1,21 @@
-import Navbar from "@/components/landing/Navbar";
+"use client";
+
+import { authClient } from "@/lib/auth-client";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-white">
-      <Navbar />
-
-      <section className="flex h-screen items-center justify-center">
-        <div className="text-center">
-          <h1 className="mb-6 text-6xl font-extrabold">
-            Practice Smart.
-            <br />
-            Get Hired.
-          </h1>
-
-          <p className="mx-auto max-w-2xl text-lg text-gray-600">
-            MockMate helps you prepare for interviews using AI-powered
-            personalized questions, instant feedback, and performance
-            analytics.
-          </p>
-        </div>
-      </section>
+    <main className="flex min-h-screen items-center justify-center">
+      <button
+        onClick={() =>
+          authClient.signIn.social({
+            provider: "google",
+            callbackURL: "/dashboard",
+          })
+        }
+        className="rounded-lg bg-blue-600 px-6 py-3 text-white hover:bg-blue-700"
+      >
+        Sign in with Google
+      </button>
     </main>
   );
 }
