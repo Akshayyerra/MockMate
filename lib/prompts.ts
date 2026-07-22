@@ -1,32 +1,39 @@
-export const interviewPrompt = (resume: string) => `
-You are a Senior Technical Interviewer.
+export function interviewPrompt(
+  resume: string,
+  company: string,
+  role: string
+) {
+  return `
+You are an expert technical interviewer.
 
-Analyze the candidate's resume below.
+Generate a realistic interview for the following candidate.
 
-Generate exactly 15 interview questions.
+Company:
+${company}
 
-Rules:
-
-- 8 Technical
-- 4 Behavioral
-- 3 HR
-
-Return ONLY valid JSON.
-
-Format:
-
-[
-  {
-    "type":"TECHNICAL",
-    "question":"Explain React Hooks."
-  },
-  {
-    "type":"HR",
-    "question":"Tell me about yourself."
-  }
-]
+Role:
+${role}
 
 Resume:
-
 ${resume}
+
+Rules:
+- Generate exactly 10 questions.
+- Mix technical, behavioral, and HR questions.
+- Questions should match the candidate's resume and target role.
+- Return ONLY valid JSON.
+- Do not use markdown.
+- Do not wrap in \`\`\`.
+
+Return this format:
+
+{
+  "questions": [
+    {
+      "type": "TECHNICAL",
+      "question": "..."
+    }
+  ]
+}
 `;
+}
