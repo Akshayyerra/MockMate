@@ -1,159 +1,215 @@
 "use client";
 
+import { motion } from "framer-motion";
 import {
-    LineChart,
-    Line,
-    XAxis,
-    ResponsiveContainer,
-    Tooltip,
-} from "recharts";
-
-const data = [
-    { week: "W1", score: 55 },
-    { week: "W2", score: 68 },
-    { week: "W3", score: 74 },
-    { week: "W4", score: 82 },
-    { week: "W5", score: 91 },
-];
-
-const interviews = [
-    {
-        company: "Google",
-        role: "Software Engineer",
-        score: 91,
-    },
-    {
-        company: "Amazon",
-        role: "SDE I",
-        score: 87,
-    },
-    {
-        company: "Microsoft",
-        role: "Frontend Engineer",
-        score: 94,
-    },
-];
+    BrainCircuit,
+    BarChart3,
+    Trophy,
+    CheckCircle2,
+} from "lucide-react";
 
 export default function DashboardPreview() {
     return (
-        <section className="bg-white py-24">
-            <div className="mx-auto max-w-7xl px-6">
+        <section className="relative bg-slate-950 py-28 overflow-hidden">
+            {/* Background Glow */}
+            <div className="absolute -left-32 top-20 h-96 w-96 rounded-full bg-indigo-600/10 blur-[140px]" />
+            <div className="absolute -right-32 bottom-20 h-96 w-96 rounded-full bg-violet-600/10 blur-[140px]" />
 
-                <div className="mb-14 text-center">
+            <div className="relative mx-auto max-w-7xl px-6">
 
-                    <span className="rounded-full bg-primary/10 px-4 py-2 font-medium text-primary">
+                {/* Heading */}
+                <motion.div
+                    initial={{ opacity: 0, y: 40 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    className="mx-auto mb-20 max-w-3xl text-center"
+                >
+                    <span className="rounded-full border border-indigo-500/30 bg-indigo-500/10 px-4 py-2 text-sm text-indigo-300">
                         Dashboard Preview
                     </span>
 
-                    <h2 className="mt-6 text-4xl font-bold text-heading">
-                        Track Your Interview Journey
+                    <h2 className="mt-6 text-5xl font-black text-white">
+                        Your AI Interview
+                        <span className="bg-gradient-to-r from-indigo-400 via-violet-400 to-cyan-400 bg-clip-text text-transparent">
+                            {" "}
+                            Command Center
+                        </span>
                     </h2>
 
-                    <p className="mt-4 text-body">
-                        Monitor interviews, resume performance and AI feedback from a
-                        beautiful dashboard.
+                    <p className="mt-6 text-lg text-slate-400">
+                        Track your interview history, analyze performance, monitor progress,
+                        and improve with AI-generated feedback.
                     </p>
+                </motion.div>
 
-                </div>
+                {/* Dashboard */}
+                <motion.div
+                    initial={{ opacity: 0, scale: .95 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: .6 }}
+                    className="rounded-[32px] border border-white/10 bg-white/[0.04] p-8 backdrop-blur-xl shadow-2xl"
+                >
 
-                <div className="rounded-3xl border border-border bg-surface p-8 shadow-xl">
-
-                    <div className="grid gap-6 md:grid-cols-3">
-
-                        <div className="rounded-2xl bg-white p-6 shadow-sm">
-                            <h3 className="text-body">
-                                Overall Score
+                    {/* Header */}
+                    <div className="mb-8 flex items-center justify-between">
+                        <div>
+                            <h3 className="text-2xl font-bold text-white">
+                                Dashboard Overview
                             </h3>
 
-                            <p className="mt-3 text-5xl font-bold text-primary">
-                                92%
+                            <p className="text-slate-400">
+                                Welcome back, Akshay 👋
                             </p>
                         </div>
 
-                        <div className="rounded-2xl bg-white p-6 shadow-sm">
-                            <h3 className="text-body">
-                                Interviews
-                            </h3>
-
-                            <p className="mt-3 text-5xl font-bold text-heading">
-                                15
-                            </p>
+                        <div className="rounded-xl bg-indigo-500/20 px-4 py-2 text-indigo-300">
+                            Premium
                         </div>
+                    </div>
 
-                        <div className="rounded-2xl bg-white p-6 shadow-sm">
-                            <h3 className="text-body">
-                                Resume Score
-                            </h3>
+                    {/* Stats */}
+                    <div className="grid gap-6 md:grid-cols-4">
 
-                            <p className="mt-3 text-5xl font-bold text-secondary">
-                                88%
-                            </p>
-                        </div>
+                        <StatCard
+                            icon={<BrainCircuit className="h-7 w-7" />}
+                            title="Interviews"
+                            value="32"
+                        />
+
+                        <StatCard
+                            icon={<BarChart3 className="h-7 w-7" />}
+                            title="Average Score"
+                            value="91%"
+                        />
+
+                        <StatCard
+                            icon={<Trophy className="h-7 w-7" />}
+                            title="Best Score"
+                            value="98%"
+                        />
+
+                        <StatCard
+                            icon={<CheckCircle2 className="h-7 w-7" />}
+                            title="Completed"
+                            value="24"
+                        />
 
                     </div>
 
-                    <div className="mt-12 h-72 rounded-2xl bg-white p-6 shadow-sm">
+                    {/* Recent Interviews */}
+                    <div className="mt-12 rounded-2xl border border-white/10 bg-slate-900/60 p-6">
 
-                        <h3 className="mb-6 text-xl font-semibold">
-                            Interview Progress
-                        </h3>
-
-                        <ResponsiveContainer
-                            width="100%"
-                            height="100%"
-                        >
-                            <LineChart data={data}>
-                                <XAxis dataKey="week" />
-                                <Tooltip />
-                                <Line
-                                    type="monotone"
-                                    dataKey="score"
-                                    stroke="#2563EB"
-                                    strokeWidth={4}
-                                />
-                            </LineChart>
-                        </ResponsiveContainer>
-
-                    </div>
-
-                    <div className="mt-12 rounded-2xl bg-white p-6 shadow-sm">
-
-                        <h3 className="mb-6 text-xl font-semibold">
+                        <h4 className="mb-6 text-xl font-semibold text-white">
                             Recent Interviews
-                        </h3>
+                        </h4>
 
-                        {interviews.map((item) => (
+                        <div className="space-y-4">
 
-                            <div
-                                key={item.company}
-                                className="mb-4 flex items-center justify-between rounded-xl border border-border p-4"
-                            >
+                            <InterviewRow
+                                company="Google"
+                                role="Software Engineer"
+                                score="94%"
+                            />
 
-                                <div>
+                            <InterviewRow
+                                company="Amazon"
+                                role="SDE Intern"
+                                score="91%"
+                            />
 
-                                    <p className="font-semibold">
-                                        {item.company}
-                                    </p>
+                            <InterviewRow
+                                company="Microsoft"
+                                role="Frontend Developer"
+                                score="96%"
+                            />
 
-                                    <p className="text-sm text-body">
-                                        {item.role}
-                                    </p>
+                            <InterviewRow
+                                company="Infosys"
+                                role="System Engineer"
+                                score="89%"
+                            />
 
-                                </div>
-
-                                <span className="rounded-full bg-green-100 px-4 py-2 font-semibold text-green-700">
-                                    {item.score}%
-                                </span>
-
-                            </div>
-
-                        ))}
+                        </div>
 
                     </div>
 
-                </div>
+                    {/* Progress */}
+                    <div className="mt-10">
+
+                        <div className="mb-3 flex justify-between text-sm">
+                            <span className="text-slate-400">
+                                Weekly Progress
+                            </span>
+
+                            <span className="text-white">
+                                84%
+                            </span>
+                        </div>
+
+                        <div className="h-3 overflow-hidden rounded-full bg-slate-700">
+                            <div className="h-full w-[84%] rounded-full bg-gradient-to-r from-indigo-500 via-violet-500 to-cyan-500"></div>
+                        </div>
+
+                    </div>
+
+                </motion.div>
 
             </div>
         </section>
+    );
+}
+
+function StatCard({
+    icon,
+    title,
+    value,
+}: {
+    icon: React.ReactNode;
+    title: string;
+    value: string;
+}) {
+    return (
+        <div className="rounded-2xl border border-white/10 bg-slate-900/60 p-6 transition hover:border-indigo-500/40">
+            <div className="mb-5 text-indigo-400">
+                {icon}
+            </div>
+
+            <p className="text-sm text-slate-400">
+                {title}
+            </p>
+
+            <h3 className="mt-2 text-3xl font-bold text-white">
+                {value}
+            </h3>
+        </div>
+    );
+}
+
+function InterviewRow({
+    company,
+    role,
+    score,
+}: {
+    company: string;
+    role: string;
+    score: string;
+}) {
+    return (
+        <div className="flex items-center justify-between rounded-xl border border-white/10 bg-slate-800/50 p-4 transition hover:border-indigo-500/30">
+            <div>
+                <h5 className="font-semibold text-white">
+                    {company}
+                </h5>
+
+                <p className="text-sm text-slate-400">
+                    {role}
+                </p>
+            </div>
+
+            <div className="rounded-lg bg-emerald-500/20 px-3 py-2 font-semibold text-emerald-400">
+                {score}
+            </div>
+        </div>
     );
 }

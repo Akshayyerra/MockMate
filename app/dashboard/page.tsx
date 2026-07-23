@@ -1,18 +1,23 @@
+import Welcome from "@/components/dashboard/Welcome";
+import StatsCards from "@/components/dashboard/StatsCards";
 import GenerateInterview from "@/components/dashboard/GenerateInterview";
+import RecentInterviews from "@/components/dashboard/RecentInterviews";
+import AnalyticsCards from "@/components/dashboard/AnalyticsCards";
+import PerformanceChartServer from "@/components/dashboard/PerformanceChartServer";
 
 export default function DashboardPage() {
     return (
-        <main className="min-h-screen bg-gray-100 p-8">
-            <div className="max-w-4xl mx-auto">
-                <h1 className="text-4xl font-bold mb-2">
-                    MockMate Dashboard
-                </h1>
+        <main className="p-8">
+            <Welcome />
 
-                <p className="text-gray-600 mb-8">
-                    Generate an AI interview tailored to your resume.
-                </p>
+            <AnalyticsCards />
 
+            <div className="mt-8">
+                <PerformanceChartServer />
+            </div>
+            <div className="grid gap-8 lg:grid-cols-2">
                 <GenerateInterview />
+                <RecentInterviews />
             </div>
         </main>
     );

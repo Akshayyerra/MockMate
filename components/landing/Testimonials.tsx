@@ -1,52 +1,79 @@
+"use client";
+
+import { motion } from "framer-motion";
 import { Star } from "lucide-react";
 
 const testimonials = [
     {
         name: "Rahul Sharma",
-        role: "Software Engineer at Google",
+        role: "Software Engineer @ Google",
+        image: "RS",
         review:
-            "MockMate helped me prepare for my interviews with realistic AI questions. The feedback was incredibly useful.",
+            "MockMate completely changed the way I prepared for interviews. The AI feedback helped me identify weak areas and improve quickly.",
     },
     {
         name: "Priya Reddy",
-        role: "SDE at Amazon",
+        role: "SDE Intern @ Amazon",
+        image: "PR",
         review:
-            "The resume analysis and ATS score helped me improve my resume before applying. Highly recommended!",
+            "The resume-based interview questions felt incredibly realistic. I walked into my interview feeling much more confident.",
     },
     {
         name: "Arjun Patel",
-        role: "Frontend Developer at Microsoft",
+        role: "Frontend Developer @ Microsoft",
+        image: "AP",
         review:
-            "The interview dashboard made it easy to track my progress. I felt much more confident before my interviews.",
+            "The dashboard and performance reports made it easy to track my progress. Highly recommended for every student.",
     },
 ];
 
 export default function Testimonials() {
     return (
-        <section className="bg-background py-24">
+        <section
+            id="testimonials"
+            className="relative bg-slate-950 py-28"
+        >
             <div className="mx-auto max-w-7xl px-6">
-                <div className="text-center">
-                    <span className="rounded-full bg-primary/10 px-4 py-2 text-sm font-semibold text-primary">
+
+                {/* Heading */}
+                <motion.div
+                    initial={{ opacity: 0, y: 40 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    className="mx-auto mb-20 max-w-3xl text-center"
+                >
+                    <span className="rounded-full border border-indigo-500/30 bg-indigo-500/10 px-4 py-2 text-sm text-indigo-300">
                         Testimonials
                     </span>
 
-                    <h2 className="mt-6 text-4xl font-bold text-heading">
-                        Trusted by Students and Professionals
+                    <h2 className="mt-6 text-5xl font-black text-white">
+                        Loved by
+                        <span className="bg-gradient-to-r from-indigo-400 via-violet-400 to-cyan-400 bg-clip-text text-transparent">
+                            {" "}
+                            Students
+                        </span>
                     </h2>
 
-                    <p className="mx-auto mt-4 max-w-2xl text-body">
-                        Thousands of learners use MockMate to improve their interview skills
-                        and land their dream jobs.
+                    <p className="mt-6 text-lg text-slate-400">
+                        Hear what candidates have to say about preparing with MockMate.
                     </p>
-                </div>
+                </motion.div>
 
-                <div className="mt-16 grid gap-8 md:grid-cols-3">
-                    {testimonials.map((item) => (
-                        <div
-                            key={item.name}
-                            className="rounded-2xl border border-border bg-white p-8 shadow-sm transition hover:-translate-y-2 hover:shadow-xl"
+                {/* Cards */}
+                <div className="grid gap-8 lg:grid-cols-3">
+                    {testimonials.map((user, index) => (
+                        <motion.div
+                            key={user.name}
+                            initial={{ opacity: 0, y: 40 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{
+                                delay: index * 0.15,
+                            }}
+                            className="group rounded-3xl border border-white/10 bg-white/[0.04] p-8 backdrop-blur-xl transition-all duration-500 hover:-translate-y-2 hover:border-indigo-500/40"
                         >
-                            <div className="mb-4 flex">
+                            {/* Stars */}
+                            <div className="mb-6 flex gap-1">
                                 {[...Array(5)].map((_, i) => (
                                     <Star
                                         key={i}
@@ -55,17 +82,31 @@ export default function Testimonials() {
                                 ))}
                             </div>
 
-                            <p className="leading-7 text-body">
-                                "{item.review}"
+                            {/* Review */}
+                            <p className="leading-8 text-slate-300">
+                                "{user.review}"
                             </p>
 
-                            <div className="mt-6">
-                                <h3 className="font-semibold text-heading">{item.name}</h3>
-                                <p className="text-sm text-body">{item.role}</p>
+                            {/* User */}
+                            <div className="mt-8 flex items-center gap-4">
+                                <div className="flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-indigo-500 to-violet-500 text-lg font-bold text-white">
+                                    {user.image}
+                                </div>
+
+                                <div>
+                                    <h4 className="font-semibold text-white">
+                                        {user.name}
+                                    </h4>
+
+                                    <p className="text-sm text-slate-400">
+                                        {user.role}
+                                    </p>
+                                </div>
                             </div>
-                        </div>
+                        </motion.div>
                     ))}
                 </div>
+
             </div>
         </section>
     );
