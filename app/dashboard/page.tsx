@@ -4,6 +4,7 @@ import GenerateInterview from "@/components/dashboard/GenerateInterview";
 import RecentInterviews from "@/components/dashboard/RecentInterviews";
 import AnalyticsCards from "@/components/dashboard/AnalyticsCards";
 import PerformanceChartServer from "@/components/dashboard/PerformanceChartServer";
+import AIRecommendations from "@/components/dashboard/AIRecommendations";
 
 export default function DashboardPage() {
     return (
@@ -14,6 +15,10 @@ export default function DashboardPage() {
 
             <div className="mt-8">
                 <PerformanceChartServer />
+            </div>
+            <div className="mt-8 grid gap-8 lg:grid-cols-2">
+                <PerformanceChartServer />
+                <AIRecommendations />
             </div>
             <div className="grid gap-8 lg:grid-cols-2">
                 <GenerateInterview />
