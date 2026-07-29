@@ -1,27 +1,34 @@
-import InterviewHeader from "@/components/interview/InterviewHeader";
-import ProgressBar from "@/components/interview/ProgressBar";
-import QuestionCard from "@/components/interview/QuestionCard";
+import { prisma } from "@/lib/prisma";
+import { notFound } from "next/navigation";
+import InterviewClient from "@/components/interview/InterviewClient";
 
-export default function InterviewPage() {
+interface Props {
+    params: Promise<{
+        id: string;
+    }>;
+}
+
+export default async function InterviewPage({ params }: Props) {
+    const { id } = await params;
+
+    const interview = await prisma.interview.findUnique({
+        where: { id },
+        include: {
+            questions: {
+                orderBy: {
+                    createdAt: "asc",
+                },
+            },
+        },
+    });
+
+    if (!interview) {
+        notFound();
+    }
+
     return (
-        <main className="min-h-screen bg-slate-950 p-8">
-            <div className="mx-auto max-w-5xl space-y-6">
-                <InterviewHeader
-                    company="Google"
-                    role="Software Engineer"
-                    currentQuestion={1}
-                    totalQuestions={10}
-                />
-
-                <ProgressBar
-                    currentQuestion={1}
-                    totalQuestions={10}
-                />
-
-                <QuestionCard
-                    question="Tell me about yourself and explain why you're interested in this Software Engineer position at Google."
-                />
-            </div>
+        <main className="min-h-screen bg-slate-950">
+            <InterviewClient interview={interview} />
         </main>
     );
 }
